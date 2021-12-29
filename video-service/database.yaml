@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: video-srv
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: video-srv
+  template:
+    metadata:
+      labels:
+        app: video-srv
+    spec:
+      containers:
+        - env:
+            - name: MYSQL_DATABASE
+              value: videodb
+            - name: MYSQL_USER
+              value: root
+            - name: MYSQL_PASSWORD
+              value: "1111"
+            - name: MYSQL_HOST
+              value: "%"
+          image: mysql/mysql-server
+          imagePullPolicy: ""
+          name: video-srv
+          ports:
+            - containerPort: 3306
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: video-srv
+spec:
+  ports:
+    - name: "3306"
+      port: 3306
+      targetPort: 3306
+  selector:
+    app: video-srv
