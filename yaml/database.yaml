@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: video-srv
+  name: database
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: video-srv
+      app: database
   template:
     metadata:
       labels:
-        app: video-srv
+        app: database
     spec:
       containers:
         - env:
@@ -24,7 +24,7 @@ spec:
               value: "%"
           image: mysql/mysql-server
           imagePullPolicy: ""
-          name: video-srv
+          name: database
           ports:
             - containerPort: 3306
 
@@ -33,11 +33,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: video-srv
+  name: database
 spec:
   ports:
     - name: "3306"
       port: 3306
       targetPort: 3306
   selector:
-    app: video-srv
+    app: database
