@@ -8,7 +8,7 @@ spec:
   type: NodePort
   ports:
     - name: http
-      port: 8082
+      port: 8080
       nodePort: 31002
 
 ---
@@ -41,6 +41,6 @@ spec:
           name: comment-service
           ports:
             - name: http
-              containerPort: 8082
+              containerPort: 8080
 
 ---
