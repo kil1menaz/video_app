@@ -1,31 +1,31 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: video-service
+  name: user-service
 spec:
   selector:
-    app: video-service
+    app: user-service
   type: NodePort
   ports:
     - name: http
-      port: 8080
-      nodePort: 31000
+      port: 8081
+      nodePort: 31001
 
 ---
 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: video-service
+  name: user-service
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: video-service
+      app: user-service
   template:
     metadata:
       labels:
-        app: video-service
+        app: user-service
     spec:
       containers:
         - env:
@@ -37,10 +37,10 @@ spec:
               value: root
             - name: MYSQL_PASSWORD
               value: "1111"
-          image: kil1menaz/video-service
-          name: video-service
+          image: kil1menaz/user-service
+          name: user-service
           ports:
             - name: http
-              containerPort: 8080
+              containerPort: 8081
 
 ---
